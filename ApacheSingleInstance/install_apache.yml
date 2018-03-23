@@ -1,0 +1,50 @@
+---
+# Install Apache and create simple html page.
+#
+- hosts: all
+  gather_facts: False
+  remote_user: ec2-user
+  become: yes
+  become_user: root
+  become_method: sudo
+
+  tasks:
+    - name: Upgrade all the packages
+      yum:
+        name: '*'
+        state: latest
+    - name: Install python
+      yum:
+        name: python
+        state: latest
+    - name: Install Apache
+      yum:
+        name: httpd24
+        state: latest
+    - name: Enable Apache on bootup
+      command: chkconfig httpd on
+    - name: Add ec2-user to apache group
+      command: usermod -a -G apache ec2-user
+    - name: Change ownership of /var/www directory
+      file:
+        path: /var/www
+        state: directory
+        group: apache
+        owner: ec2-user
+    - name: Change permissions of /var/www directory
+      file:
+        path: /var/www
+        state: directory
+        group: apache
+        owner: ec2-user
+        mode: 2775
+    - name: Change permissions of subdirectories of /var/www directory
+      command: find /var/www -type d -exec sudo chmod 2775 {} \;
+    - name: Change permissions of files of /var/www directory
+      command: find /var/www -type f -exec sudo chmod 0664 {} \;
+    - name: Create sample index.html page
+      shell: echo "VAS Test Page" > /var/www/html/index.html
+    - name: Start httpd service
+      service:
+        name: httpd
+        state: started
