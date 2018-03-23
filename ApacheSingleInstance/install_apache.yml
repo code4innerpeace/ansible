@@ -43,7 +43,9 @@
     - name: Change permissions of files of /var/www directory
       command: find /var/www -type f -exec sudo chmod 0664 {} \;
     - name: Create sample index.html page
-      shell: echo "VAS Test Page" > /var/www/html/index.html
+      template:
+        src: "templates/index.html"
+        dest: /var/www/html/index.html
     - name: Start httpd service
       service:
         name: httpd
