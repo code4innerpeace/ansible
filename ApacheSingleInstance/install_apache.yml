@@ -46,7 +46,10 @@
       template:
         src: "templates/index.html"
         dest: /var/www/html/index.html
-    - name: Start httpd service
+      notify:
+      - restart httpd service
+  handlers:
+    - name: restart httpd service
       service:
         name: httpd
-        state: started
+        state: restarted
