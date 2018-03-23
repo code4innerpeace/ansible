@@ -4,10 +4,10 @@ This project contains my experiments with Ansible tool.
 
 ### Prerequisites
 
-Install Ansible(Implemented on 2.4.2.0).
-Create 'hosts' file.
-===hosts file sample contents===
-[all]
+Install Ansible(Implemented on 2.4.2.0).\
+Create 'hosts' file.\
+===hosts file template===\
+[all]\
 1.2.3.4
 
 ### Execution
