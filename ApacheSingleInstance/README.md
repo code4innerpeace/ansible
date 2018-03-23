@@ -12,8 +12,8 @@ Create 'hosts' file.\
 
 ### Execution
 
-Create the 'hosts' file and the server ip to the 'hosts' file.
-Execute below command.
+Create the 'hosts' file and add the server ip to the 'hosts' file.
+Execute the below command.
 ```
 ansible-playbook --private-key=Test.pem install_apache.yml -i hosts
 ```
